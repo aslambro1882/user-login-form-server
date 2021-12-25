@@ -91,7 +91,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello Form Backend')
+    res.json('Hello Form Backend')
 });
 
 app.listen(port, () => {
