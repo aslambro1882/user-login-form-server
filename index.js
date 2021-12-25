@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 var admin = require("firebase-admin");
+require('dotenv').config();
 
 // middleware
 app.use(cors());
@@ -20,7 +21,7 @@ admin.initializeApp({
 });
 
 
-const uri = "mongodb+srv://user-form:R2iiTQAsLGEWOqvJ@cluster0.iascy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.iascy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function verifyToken(req, res, next) {
@@ -75,8 +76,6 @@ async function run() {
         })
 
         app.get('/users', async (req, res) => {
-
-            // if(req.decodedUserEmail === email)
             const cursor = usersCollection.find({});
             const users = await cursor.toArray();
             res.json(users);
