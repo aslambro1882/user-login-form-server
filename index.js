@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-var admin = require("firebase-admin");
+const admin = require("firebase-admin");
 require('dotenv').config();
 
 // middleware
@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000;
 
 
 
-var serviceAccount = require("./user-form-875c2-firebase-adminsdk-8487u-ff475783e2.json");
+const serviceAccount = require("./user-form-875c2-firebase-adminsdk-8487u-ff475783e2.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -64,16 +64,16 @@ async function run() {
 
         })
 
-        app.put('/users', verifyToken, async (req, res) => {
-            console.log(req.body.email);
-            const email = req.body.email;
-            if (req.decodedUserEmail == email) {
-                res.json({ message: 'valid user' })
-            }
-            else {
-                res.status(401).json({ message: 'unauthurized access' })
-            }
-        })
+        // app.put('/users', verifyToken, async (req, res) => {
+        //     console.log(req.body.email);
+        //     const email = req.body.email;
+        //     if (req.decodedUserEmail == email) {
+        //         res.json({ message: 'valid user' })
+        //     }
+        //     else {
+        //         res.status(401).json({ message: 'unauthurized access' })
+        //     }
+        // })
 
         app.get('/users', async (req, res) => {
             const cursor = usersCollection.find({});
