@@ -74,7 +74,7 @@ async function run() {
             }
         })
 
-        app.get('/users', verifyToken, async (req, res) => {
+        app.get('/users', async (req, res) => {
 
             // if(req.decodedUserEmail === email)
             const cursor = usersCollection.find({});
